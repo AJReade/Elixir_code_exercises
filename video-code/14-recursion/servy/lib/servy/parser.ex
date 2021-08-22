@@ -15,8 +15,8 @@ defmodule Servy.Parser do
 
     IO.inspect header_lines
 
-    %Conv{ 
-       method: method, 
+    %Conv{
+       method: method,
        path: path,
        params: params,
        headers: headers
@@ -27,6 +27,7 @@ defmodule Servy.Parser do
     [key, value] = String.split(head, ": ")
     headers = Map.put(headers, key, value)
     parse_headers(tail, headers)
+    IO.puts(headers)
   end
 
   def parse_headers([], headers), do: headers
@@ -37,9 +38,15 @@ defmodule Servy.Parser do
 
   def parse_params(_, _), do: %{}
 
+  defmodule Recurse do
+
+    def sum([head | tail], total) do
+      IO.puts "Head: #{head} Tail: #{inspect(tail)}"
+      total = total + head
+      sum(tail, total)
+    end
+
+    def sum([]), do: IO.puts "Done!"
+  end
+
 end
-
-
-
-
-
