@@ -166,3 +166,34 @@ Accept: */*
 response = Servy.Handler.handle(request)
 
 IO.puts response
+
+defmodule Rank do
+
+
+ranks =
+  [ "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" ]
+
+suits =
+  [ "♣", "♦", "♥", "♠" ]
+
+#deck = for rank <- ranks, do: for suit <- suits, do: {rank, suit}
+
+# better syntax
+deck = for rank <- ranks, suit <- suits, do: {rank, suit}
+
+IO.inspect(deck)
+thirteen_card_hand = Enum.take_random(deck, 13)
+
+def hand(deck) do
+Enum.shuffle(deck)
+|> Enum.take(13)
+end
+
+deck_of_4 =
+deck
+|> Enum.shuffle
+|> Enum.chunk_every(13)
+|> IO.inspect
+
+IO.inspect thirteen_card_hand
+end
