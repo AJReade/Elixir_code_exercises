@@ -176,6 +176,30 @@ defmodule Recurse do
   end
 
   def sum([], total), do: IO.puts(total)
+
+  def triple([head | tail]) do
+    head = head * 3
+    IO.puts("Head: #{head} Tail: #{inspect(tail)}}")
+    [head | triple(tail)]
+  end
+
+  def triple([]), do: []
+
+
+  def my_map([head| tail], fun) do
+    [fun.(head) | my_map(tail, fun)]
+  end
+
+  def my_map([], _fun), do: []
+
 end
 
-IO.puts(Recurse.sum([1, 2, 3, 4, 5], 0))
+Recurse.sum([1, 2, 3, 4, 5], 0)
+
+IO.inspect Recurse.triple([1, 2, 3, 4, 5])
+
+nums = [1, 2, 3, 4, 5]
+
+IO.inspect Recurse.my_map(nums, &(&1 * 2))
+IO.inspect Recurse.my_map(nums, &(&1 * 4))
+IO.inspect Recurse.my_map(nums, &(&1 * 5))
